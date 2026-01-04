@@ -54,7 +54,7 @@
 #define SSD1306_64_48_COLUMNS       64
 
 
-uint8_t ssd1306_init(uint8_t i2c_dev);
+uint8_t ssd1306_init(uint8_t i2c_dev, uint8_t addr);
 uint8_t ssd1306_end();
 uint8_t ssd1306_oled_onoff(uint8_t onoff);
 uint8_t ssd1306_oled_horizontal_flip(uint8_t flip);

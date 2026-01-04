@@ -24,6 +24,7 @@ void print_help()
     printf("-r\t\t0/normal 180/rotate\n");
     printf("-x\t\tx position\n");
     printf("-y\t\ty position\n");
+    printf("-a\t\ti2c address of the display\n");
 }
 
 int main(int argc, char **argv)
@@ -42,10 +43,11 @@ int main(int argc, char **argv)
     int font = 0;
     
     int cmd_opt = 0;
+    uint8_t addr = SSD1306_I2C_ADDR;
     
     while(cmd_opt != -1) 
     {
-        cmd_opt = getopt(argc, argv, "I:c::d:f:hi:l:m:n:r:x:y:");
+        cmd_opt = getopt(argc, argv, "I:c::d:f:hi:l:m:n:r:x:y:a:");
 
         /* Lets parse */
         switch (cmd_opt) {
@@ -97,6 +99,8 @@ int main(int argc, char **argv)
             case 'y':
                 y = atoi(optarg);
                 break;
+            case 'a':
+                addr = strtol(optarg, NULL, 16);
             case -1:
                 // just ignore
                 break;
@@ -142,7 +146,7 @@ int main(int argc, char **argv)
     uint8_t rc = 0;
     
     // open the I2C device node
-    rc = ssd1306_init(i2c_node_address);
+    rc = ssd1306_init(i2c_node_address, addr);
     
     if (rc != 0)
     {
